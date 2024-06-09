@@ -1,9 +1,0 @@
-[submodule "mailcow"]
-	path = mailcow
-	url = https://github.com/mailcow/mailcow-dockerized
-[submodule "nextcloud/all-in-one"]
-	path = nextcloud/all-in-one
-	url = https://github.com/nextcloud/all-in-one
-[submodule "openam"]
-	path = openam
-	url = https://github.com/OpenIdentityPlatform/OpenAM
