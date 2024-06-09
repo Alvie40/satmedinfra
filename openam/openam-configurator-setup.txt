@@ -1,0 +1,61 @@
+#
+# Format version.
+#
+version=1.0
+
+#
+# Accept license
+#
+acceptLicense=true
+
+#
+# Server settings.
+#
+SERVER_URL=https://althora.com:8443
+SERVER_HOSTNAME=althora.com
+SERVER_PORT=8443
+SERVER_PROTOCOL=https
+
+#
+# Administrator password (default: "password").
+#
+AMADMIN_PASSWORD=Ama53124!
+
+#
+# Encryption key.
+#
+AM_ENC_KEY=amEncryptionKey123
+
+#
+# Directory settings.
+#
+DIRECTORY_SSL=SIMPLE
+DIRECTORY_SERVER=opendj
+DIRECTORY_PORT=1389
+DIRECTORY_ADMIN_PORT=4444
+DIRECTORY_JMX_PORT=1689
+DIRECTORY_ROOT_SUFFIX=dc=openam,dc=openidentityplatform,dc=org
+DIRECTORY_ADMIN_DN=cn=Directory Manager
+DIRECTORY_ADMIN_PWD=password
+
+#
+# User store settings.
+#
+DATA_STORE=embedded
+DS_DIRMGRDN=cn=Directory Manager
+DS_DIRMGRPASSWD=password
+ROOT_SUFFIX=dc=openam,dc=openidentityplatform,dc=org
+
+#
+# Configuration store settings.
+#
+CONFIG_STORE=embedded
+CONFIG_DIRMGRDN=cn=Directory Manager
+CONFIG_DIRMGRPASSWD=password
+CONFIG_ROOT_SUFFIX=dc=openam,dc=openidentityplatform,dc=org
+
+#
+# Other settings.
+#
+BASE_DIR=/usr/openam/config
+COOKIE_DOMAIN=althora.com

@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  openam:
+    image: openidentityplatform/openam:latest
+    ports:
+      - "8080:8080"
+    hostname: althora.com/openam
+    volumes:
+      - ./persistence/openam:/usr/openam/config
+
+  opendj:
+    image: openidentityplatform/opendj:latest
+    hostname: althora.com/opendj
+    ports:
+      - "1389:1389"
+      - "1636:1636"
+      - "4444:4444"
+    volumes:
+      - ./opendj/bootstrap/data/:/opt/opendj/bootstrap/data # Dados iniciais
+      - ./opendj/bootstrap/schema/:/opt/opendj/bootstrap/schema # Arquivos de esquema
+      - ./persistence/opendj:/opt/opendj/data # Dados do OpenDJ
+    environment:
+      - BASE_DN=dc=openam,dc=openidentityplatform,dc=org
+
+volumes:
+  openam_data:
+  opendj_data:
+
+networks:
+  default:
+    driver: bridge

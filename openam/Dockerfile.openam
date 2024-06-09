@@ -1,0 +1,35 @@
+FROM openidentityplatform/openam:latest
+
+# Mudar para o usuário root
+USER root
+
+# Criar diretório para os certificados com permissões de superusuário
+RUN mkdir -p /etc/ssl/althora.com
+
+RUN apt-get update && \
+    apt-get install -y iputils-ping telnet && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copiar certificados do contexto de build para o contêiner
+COPY certs/privkey.pem /etc/ssl/althora.com/privkey.pem
+COPY certs/cert.pem /etc/ssl/althora.com/cert.pem
+COPY certs/fullchain.pem /etc/ssl/althora.com/fullchain.pem
+
+# Copiar server.xml para o Tomcat
+COPY server.xml /usr/local/tomcat/conf/server.xml
+
+# Copiar script de configuração e arquivo de setup
+COPY setup-openam.sh /usr/openam/bootstrap/setup-openam.sh
+COPY openam-configurator-setup.txt /usr/openam/bootstrap/openam-configurator-setup.txt
+
+# Garantir permissões corretas
+RUN chmod +x /usr/openam/bootstrap/setup-openam.sh
+
+# Expor a porta 8443
+EXPOSE 8443
+
+# Executar script de configuração durante o build
+RUN /usr/openam/bootstrap/setup-openam.sh
+
+# Iniciar Tomcat
+CMD ["catalina.sh", "run"]

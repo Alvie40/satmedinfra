@@ -1,0 +1,17 @@
+FROM openidentityplatform/opendj:latest
+
+# Mudar para o usuário root
+USER root
+
+RUN apt-get update && \
+    apt-get install -y iputils-ping telnet && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copiar script de configuração
+COPY setup-opendj.sh /opt/opendj/bootstrap/setup-opendj.sh
+
+# Garantir permissões corretas
+RUN chmod +x /opt/opendj/bootstrap/setup-opendj.sh
+
+# Executar o script de configuração
+RUN /opt/opendj/bootstrap/setup-opendj.sh

@@ -1,0 +1,51 @@
+version: '3.9'
+
+services:
+  opendj:
+    build:
+      context: .
+      dockerfile: Dockerfile.opendj
+    container_name: opendj
+    init: true
+    ports:
+      - "1389:1389"
+      - "4444:4444"
+      - "1636:1636"
+    environment:
+      - BASE_DN=dc=openam,dc=openidentityplatform,dc=org
+      - ROOT_USER_DN=cn=Directory Manager
+      - ROOT_PASSWORD=password
+      - HOST_NAME=opendj
+      - LDAP_PORT=1389
+      - ADMIN_PORT=4444
+      - JMX_PORT=1689
+    volumes:
+      - opendj_data:/opt/opendj/data
+    networks:
+      - althora-net
+    restart: always
+
+  openam:
+    build:
+      context: .
+      dockerfile: Dockerfile.openam
+    container_name: openam
+    init: true
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    environment:
+      - AMADMIN_PASSWORD=Ama53124!
+      - DEBU=true
+    volumes:
+      - openam_data:/var/openam
+    networks:
+      - althora-net
+    restart: always
+
+volumes:
+  openam_data:
+  opendj_data:
+
+networks:
+  althora-net:
